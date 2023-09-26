@@ -1,0 +1,209 @@
+/*region KEYFRAMES*/
+@keyframes spin {
+	0%{
+		transform: rotate(0deg);
+	}
+	100%{
+		transform: rotate(360deg);
+	}
+}
+@keyframes flicker {
+	0%, 18%, 22%, 25%, 53%, 57%, 100% {
+		text-shadow: 0 0 2px #F0078B,
+		0 0 6px #F0078B,
+		0 0 12px #F0078B,
+		0 0 20px #ff0090,
+		0 0 30px #ff40a9,
+		0 0 50px #881b5b,
+		0 0 80px #e060a7,
+		0 0 100px #be076e;
+	}
+	20%, 24%, 55% {
+		text-shadow: none;
+	}
+}
+@keyframes flicker-alt{
+	0%, 25%, 34%, 39%, 51%, 55%, 100% {
+		text-shadow: 0 0 1px #F0078B,
+		0 0 2px #F0078B,
+		0 0 3px #F0078B,
+		0 0 4px #ff0090,
+		0 0 5px #ff40a9,
+		0 0 6px #881b5b,
+		0 0 7px #e060a7,
+		0 0 8px #be076e;
+	}
+	16%, 21%, 42% {
+		text-shadow: none;
+	}
+}
+/*endregion*/
+/*region BASE*/
+@font-face {
+	font-family: "Cyberpunk";
+	src: url("../fonts/Cyberpunk.ttf");
+}
+@font-face {
+	font-family: "Samson";
+	src: url("../fonts/Samson.ttf");
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cyberpunk";
+}
+html {
+	height: 100%;
+}
+/*endregion*/
+/*region MAIN BLOCK*/
+.washer {
+	position: relative;
+	width: 555px;
+	height: 555px;
+	display: flex;
+	justify-content: center;
+	padding-top: 10px;
+}
+.washer__machine {
+	position: relative;
+	width: 556px;
+}
+.washer__machine img {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	object-fit: contain;
+	object-position: right;
+}
+.washer-barrel {
+	max-width: 180px;
+	max-height: 180px;
+	left: 265px;
+	top: 160px;
+	z-index: -10;
+	transform-origin: 90px 105px;
+	object-fit: cover;
+	filter: grayscale(1);
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+.washer-barrel.spinning{
+	animation-name: spin;
+}
+.washer__machine.opened > .washer-opened {
+	display: block;
+}
+.washer-opened,
+.washer__machine.opened > .washer-closed {
+	display: none;
+}
+/*endregion*/
+/*region CONTROLS*/
+.washer__controls {
+	position: absolute;
+	width: 397px;
+	height: fit-content;
+	display: flex;
+	left: 156px;
+	top: 10px;
+	padding: 0 10px;
+	background-color: #32323f;
+	color: #F0078B;
+}
+.washer__controls--mode {
+	flex: 1 0 50%;
+	transition: 0.5s;
+}
+.washer__controls--buttons,
+.washer__controls--rpm {
+	flex: 0 0 25%;
+}
+.washer__controls--rpm{
+	font-size: 25px;
+	letter-spacing: -2px;
+	position: relative;
+	color: #4846E3;
+	transition: color 0.5s, opacity 0.3s, visibility 0.3s 0s;
+	opacity: 0;
+}
+.washer__controls--rpm.rpm-show{
+	opacity: 1;
+	visibility: visible;
+}
+.washer__controls--rpm-items .washer__controls--mode-item{
+	font-family: "Samson";
+	font-size: 32px;
+	text-align: right;
+	transition: color 0.5s, filter 0.5s;
+	letter-spacing: 5px;
+}
+.washer__controls--mode-items-wrapper {
+	height: 120px;
+	overflow: hidden;
+}
+.washer__controls--mode-item{
+	font-size: 25px;
+	letter-spacing: -2px;
+	position: relative;
+	color: #4846E3;
+	transition: color 0.5s, filter 0.5s;
+	text-transform: uppercase;
+}
+.washer__controls--mode-item.swiper-slide-active {
+	color: #F0078B;
+	animation: flicker 1.5s infinite alternate;
+}
+.washer__controls--rpm-items .washer__controls--mode-item.swiper-slide-active{
+	color: #F0078B;
+	animation: flicker-alt 1.5s infinite alternate;
+}
+.washer__controls--buttons {
+	display: flex;
+	flex: 0 0 25%;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.washer__controls--button{
+	background-color: transparent;
+	color: #F0078B;
+	font-size: 18px;
+	transition: color 0.5s;
+}
+.washer__controls--button:hover{
+	color: #10f473;
+}
+/*endregion*/
+/*region INDICATORS*/
+.washer__indicators{
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 399px;
+	height: 75px;
+	right: 0;
+	bottom: 0px;
+	gap: 10px;
+	padding: 0 15px;
+	background-color: #20202E;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.washer__indicators--time{
+	color: #F0078B;
+	font-family: "Samson";
+	font-size: 20px;
+	animation: flicker 1.5s infinite alternate;
+}
+.washer__indicators--report{
+	font-size: 25px;
+	color: #F0078B;
+	opacity: 0;
+	transition: opacity 0.5s;
+}
+.washer__indicators--report.show-report{
+	opacity: 1;
+}
+/*endregion*/
